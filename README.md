@@ -2,9 +2,13 @@
 
 ![](./docs/swagger.png)
 
-here is the react native application in another project repositorey
+## React Native Typescripte
+
 ![](./docs/A.png)
+
 ![](./docs/B.png)
+
+here is the react native application in another project repositorey
 
 
 [exemple tuto](https://www.youtube.com/watch?v=qVUr4YC6ZXA)
@@ -49,6 +53,12 @@ techno
 
 
 1.1. Create a .env from env.example
+
+```
+cp env.example .env
+vim .env
+```
+
 
 cmd:
 ```

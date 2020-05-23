@@ -3,6 +3,7 @@
 Backend : node js, express, typescript, swagger, jwt
 * authentication : user, token jwt
 * add, update, delete, get file song
+* mongo db, react native typescript for example
 
 ![](./docs/swagger.png)
 
@@ -17,6 +18,9 @@ here is the react native application in another project repositorey
 [swagger tuto](https://www.youtube.com/watch?v=qemG0CWOx1I)
 
 ### What is this repository for? ###
+
+Backend : node js, express, typescript, swagger, jwt, mongo db
+
 
 * Structure
 

@@ -1,5 +1,9 @@
 # NODE TYPESCRIPT authentication JWT #
 
+Backend : node js, express, typescript, swagger, jwt
+* authentication : user, token jwt
+* add, update, delete, get file song
+
 ![](./docs/swagger.png)
 
 ## React Native Typescripte

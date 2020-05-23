@@ -4,12 +4,10 @@
 
 ## React Native Typescripte
 
+![](./docs/B.png)
 ![](./docs/A.png)
 
-![](./docs/B.png)
-
 here is the react native application in another project repositorey
-
 
 [exemple tuto](https://www.youtube.com/watch?v=qVUr4YC6ZXA)
 [swagger tuto](https://www.youtube.com/watch?v=qemG0CWOx1I)

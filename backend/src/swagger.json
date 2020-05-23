@@ -1,0 +1,494 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Authentication JWT with node js, express, typescript :\n signup, signin, user profile, change password, \n Add a song, get songs, update a song",
+    "version": "1.0.0",
+    "title": "authentication + songs API : nodejs, JWT, express, typescript",
+    "contact": {
+      "email": "os@42school.com"
+    }
+  },
+  "host": "localhost:3001",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "User",
+      "description": "Authentication API : User"
+    },
+    {
+      "name": "Song",
+      "description": "Add song, to create a playlist"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/signup": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create a User : username, email, password",
+            "schema": {
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "summary": "Signup : Registration of a User",
+        "responses": {
+          "200": {
+            "description": "User {Object}",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/api/signin": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Login with User :  email, password",
+            "schema": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "summary": "Signin - Login as User : get a JWT",
+        "responses": {
+          "200": {
+            "description": "jwt",
+            "headers": {
+              "auth_token": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "auth_token in HEADERS": {
+                  "type": "string"
+                }
+              },
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/api/profile": {
+      "get": {
+        "summary": "Signin with a JWT : Login of a User and response User's info",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth_token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "User {Object}",
+            "schema": {
+              "properties": {
+                "activated": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "__v": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "no user found"
+          }
+        }
+      }
+    },
+    "/api/{id}": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Only password and _id from url params is necessary, link send by email",
+            "required": true,
+            "schema": {
+              "properties": {
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "auth_token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "summary": "Change password of a User : username, email, password",
+        "responses": {
+          "200": {
+            "description": "jwt",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/api/addsong": {
+      "post": {
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "add a song : url + Title",
+            "schema": {
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "ranking": {
+                  "type": "number"
+                },
+                "alert": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "summary": "Add a song",
+        "responses": {
+          "200": {
+            "description": "Song {Object}",
+            "schema": {
+              "$ref": "#/definitions/Song"
+            }
+          },
+          "400": {
+            "description": "error data given",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "error data given, or already exist :-)",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/getonekindasong": {
+      "post": {
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "add a song : url + Title",
+            "schema": {
+              "properties": {
+                "kind": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "summary": "Add a song",
+        "responses": {
+          "200": {
+            "description": "Song {Object}",
+            "schema": {
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "error data given",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "error data given, or already exist :-)",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/deleteonesong/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "auth_token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "summary": "delete of a Song",
+        "responses": {
+          "200": {
+            "description": "song",
+            "schema": {
+              "$ref": "#/definitions/Song"
+            }
+          }
+        }
+      }
+    },
+    "/api/getsongs": {
+      "get": {
+        "summary": "get all songs",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth_token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "responses": {
+          "200": {
+            "description": "User {Object}",
+            "schema": {
+              "properties": {
+                "array": {
+                  "type": "array"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "no user found"
+          }
+        }
+      }
+    },
+    "/api/updatesong/{_id}": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "auth_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "update a song",
+            "schema": {
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "ranking": {
+                  "type": "number"
+                },
+                "alert": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "summary": "update of a Song",
+        "responses": {
+          "200": {
+            "description": "song",
+            "schema": {
+              "$ref": "#/definitions/Song"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "activated": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "number"
+        },
+        "function encryptPassword": {
+          "type": "null"
+        },
+        "function validatePassword": {
+          "type": "null"
+        }
+      }
+    },
+    "Song": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "check": {
+          "type": "boolean"
+        },
+        "author": {
+          "type": "string"
+        },
+        "ranking": {
+          "type": "number"
+        },
+        "alert": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
